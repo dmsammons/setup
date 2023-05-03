@@ -1,5 +1,6 @@
 :imap jj <Esc>
 
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -10,27 +11,31 @@ call vundle#begin()
 let g:pymode_options_max_line_length=100
 "let g:pymode_lint_ignore = "E501,W"
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+set nocompatible               " be improved, required
+filetype off                   " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.config/nvim/bundle/Vundle.vim
+call vundle#begin()            " required
+Plugin 'VundleVim/Vundle.vim'  " required
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'python-mode/python-mode'
-" Plugin 'python/black'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+Plugin 'psf/black'
+call vundle#end()               " required
 filetype plugin indent on    " required
 
-"syntax enable
-"set background=dark
-"colorscheme solarized
-"syntax on
+syntax enable
+set background=dark
+colorscheme solarized
+syntax on
 
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 "Pylint configuration file
 "let g:pymode_lint_config = '$HOME/pylint.rc'
 autocmd FileType python set colorcolumn=100
+"Run black everytime we save a file
+autocmd BufWrite *.py :call black#Black()
 
 "Return to last edit position when opening files
 autocmd BufReadPost *
